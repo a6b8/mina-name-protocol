@@ -1,0 +1,17 @@
+{
+  "name": "minans",
+  "version": "1.0.0",
+  "description": "Dieses Repo ist ein Experiment und alle beinhalteten Ausführung werden wahrscheinlich zu einem späteren Zeipunkt überarbeitet. Es dient playground um die Idee eines Inscribtion Based Name System für Mina voranzutreiben.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bs58": "^5.0.0",
+    "easymina": "^0.1.1",
+    "md5": "^2.3.0"
+  }
+}
