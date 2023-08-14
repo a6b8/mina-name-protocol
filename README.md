@@ -182,9 +182,12 @@ Only 32 bytes are possible
 First Name
 > https://berkeley.minaexplorer.com/transaction/5JtugaKzy5ms55HpVhzBgpDxCAfeFmu2ju11ffWqJAUJpPhztAXJ
 
-> 5JtugaKzy5ms55HpVhzBgpDxCAfeFmu2ju11ffWqJAUJpPhztAXJ
+Contract
+> https://berkeley.minaexplorer.com/wallet/B62qkvW2gDNdzwnUtM7Zx8dLA8TRNf9MeuycEs5bL46HVCjnZwNMWh5
 
-> B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEa
+User
+> https://berkeley.minaexplorer.com/wallet/B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEa
+
 
 ```
 query MyQuery {
