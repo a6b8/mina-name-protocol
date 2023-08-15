@@ -2,7 +2,24 @@
 
 This repository serves as an experiment, and all included implementations will likely be revised at a later point. It serves as a playground to advance the idea of an Inscription-Based Name System for Mina.
 
-## Operations
+## Table of Contents
+
+- [Mina Name System (Experiment)](#mina-name-system-experiment)
+  - [Table of Contents](#table-of-contents)
+  - [Full](#full)
+    - [Operations](#operations)
+    - [Single Struct](#single-struct)
+      - [Project](#project)
+      - [Name](#name)
+      - [Sources](#sources)
+      - [sRoles](#sroles)
+    - [Batch Update](#batch-update)
+  - [Minimal](#minimal)
+    - [Transaction Memo](#transaction-memo)
+
+## Full
+
+### Operations
 
 Operations are the core of a command; they define how the command will be handled.
 
@@ -13,7 +30,7 @@ Operations are the core of a command; they define how the command will be handle
 | 3  | delete  | single |
 | 4  | batch   | batch  |
 
-## Single Struct
+### Single Struct
 
 | NR | KEY     | REQUIRED | TYPE           | OPERATIONS          |
 |:---|:--------|:---------|:---------------|:--------------------|
@@ -44,7 +61,7 @@ Operations are the core of a command; they define how the command will be handle
 }
 ```
 
-### A. Project
+#### Project
 
 This key determines which parser is responsible for the command. The provided string includes the following components.
 
@@ -62,7 +79,7 @@ This key determines which parser is responsible for the command. The provided st
 }
 ```
 
-### A. Name
+#### Name
 
 The name cannot be updated; it can only be deleted after creation. This field defines the name of the entry.
 
@@ -70,7 +87,7 @@ The name cannot be updated; it can only be deleted after creation. This field de
 |:---|:-----|:---------|:-----------|:---|     
 | 1  | name | `true`   | `\w+\.test`| `X` |
 
-### B. Sources
+#### Sources
 
 This field can be used to link references to Smart Contracts. Additional fields can be considered, and validation dependencies based on the provider might also be taken into account.
 
@@ -96,7 +113,7 @@ This field can be used to link references to Smart Contracts. Additional fields 
 
 > The key "sources" is optional, but if used, 1 and 2 must be passed as a JSON structure.
 
-### C. Roles
+#### sRoles
 
 Roles can be defined here, allowing for the distribution of data management.
 
@@ -121,7 +138,7 @@ Roles can be defined here, allowing for the distribution of data management.
 
 > The key "roles" is optional, but if used, 1 and 2 must be passed as a JSON structure.
 
-## Batch Update
+### Batch Update
 
 Here, various operations can be mixed together, saving space while still allowing for efficient reading.
 
@@ -173,7 +190,7 @@ Example:
 }
 ```
 
-## Mina
+## Minimal
 
 ### Transaction Memo
 Only 32 bytes are possible
