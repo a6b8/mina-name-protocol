@@ -2,12 +2,13 @@
 
 This repository serves as an experiment, and all included implementations will likely be revised at a later point. It serves as a playground to advance the idea of an Inscription-Based Name System for Mina.
 
+
 ## Table of Contents
 
 - [Mina Name System (Experiment)](#mina-name-system-experiment)
   - [Table of Contents](#table-of-contents)
   - [Explorer Name Service](#explorer-name-service)
-  - [Full](#full)
+  - [Full Feature](#full-feature)
     - [Operations](#operations)
     - [Single Struct](#single-struct)
       - [Project](#project)
@@ -15,7 +16,7 @@ This repository serves as an experiment, and all included implementations will l
       - [Sources](#sources)
       - [sRoles](#sroles)
     - [Batch Update](#batch-update)
-  - [Minimal](#minimal)
+  - [Minimal Featurelist](#minimal-featurelist)
     - [Memo Overview](#memo-overview)
     - [Test](#test)
     - [Fetch Memo](#fetch-memo)
@@ -35,7 +36,7 @@ Memos are limited to 32 characters that include the prefix.
 
 
 
-## Full
+## Full Feature
 
 ### Operations
 
@@ -208,7 +209,9 @@ Example:
 }
 ```
 
-## Minimal
+## Minimal Featurelist
+
+- "Name": [ create, delete ]
 
 ### Memo Overview
 
