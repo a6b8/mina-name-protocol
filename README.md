@@ -6,6 +6,7 @@ This repository serves as an experiment, and all included implementations will l
 
 - [Mina Name System (Experiment)](#mina-name-system-experiment)
   - [Table of Contents](#table-of-contents)
+  - [Explorer Name Service](#explorer-name-service)
   - [Full](#full)
     - [Operations](#operations)
     - [Single Struct](#single-struct)
@@ -15,8 +16,24 @@ This repository serves as an experiment, and all included implementations will l
       - [sRoles](#sroles)
     - [Batch Update](#batch-update)
   - [Minimal](#minimal)
-    - [Test Memo](#test-memo)
+    - [Memo Overview](#memo-overview)
+    - [Test](#test)
     - [Fetch Memo](#fetch-memo)
+
+
+## Explorer Name Service
+
+"To ensure that only the address holder may update the information, a transaction must be broadcast on the Mina blockchain utilizing the memo field to the specified address. To identify this is a name request, the memo must begin with ```Name:``` You should send an amount of ```0``` and only pay the ```transaction fee```. "
+
+Memos are limited to 32 characters that include the prefix.
+
+> https://docs.minaexplorer.com/minaexplorer/explorer-name-service
+
+**GraphQL Archive Nodes**
+- Archive Node: https://docs.minaexplorer.com/minaexplorer/berkeley-testnet  
+- zkIgnite Funding: https://zkignite.minaprotocol.com/zkignite/dev4dev-track-1/funded/suggestion/381
+
+
 
 ## Full
 
@@ -193,9 +210,13 @@ Example:
 
 ## Minimal
 
-### Test Memo
+### Memo Overview
+
 Only 32 bytes are possible
 > https://mothereff.in/byte-counter
+
+Memo Introduction:
+> https://garethtdavies.medium.com/prototyping-a-coda-blockchain-explorer-dbe5c12b4ae2
 
 Encoding with bs58:
 > https://github.com/MinaProtocol/mina/pull/7079#issuecomment-746868482
@@ -205,6 +226,8 @@ Example
   
     - Module: [base58check](https://pypi.org/project/base58check/)
 
+
+### Test
 
 > https://berkeley.minaexplorer.com/transaction/5JtugaKzy5ms55HpVhzBgpDxCAfeFmu2ju11ffWqJAUJpPhztAXJ
 
