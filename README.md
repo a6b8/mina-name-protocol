@@ -15,7 +15,8 @@ This repository serves as an experiment, and all included implementations will l
       - [sRoles](#sroles)
     - [Batch Update](#batch-update)
   - [Minimal](#minimal)
-    - [Transaction Memo](#transaction-memo)
+    - [Test Memo](#test-memo)
+    - [Fetch Memo](#fetch-memo)
 
 ## Full
 
@@ -192,7 +193,7 @@ Example:
 
 ## Minimal
 
-### Transaction Memo
+### Test Memo
 Only 32 bytes are possible
 > https://mothereff.in/byte-counter
 
@@ -206,32 +207,7 @@ User
 > https://berkeley.minaexplorer.com/wallet/B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEa
 
 
-```
-query MyQuery {
-  events(sortBy: BLOCKHEIGHT_DESC) {
-    event
-    blockStateHash {
-      commandTransactionCount
-      blockHeight
-      creator
-    }
-    dateTime
-  }
-}
-```
-
-View Events:
-```
-query MyQuery {
-  events(sortBy: BLOCKHEIGHT_DESC, query: {zkAppCommandHash: {zkappCommand: {accountUpdates: {body: {publicKey: "B62qkvW2gDNdzwnUtM7Zx8dLA8TRNf9MeuycEs5bL46HVCjnZwNMWh5"}}}}}) {
-    event
-    dateTime
-    zkAppCommandHash {
-      hash
-      zkappCommand {
-        memo
-        accountUpdates {
-```
+### Fetch Memo
 
 Get Address by Name
 
