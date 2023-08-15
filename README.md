@@ -8,7 +8,7 @@ This repository serves as an experiment, and all included implementations will l
 - [Mina Name System (Experiment)](#mina-name-system-experiment)
   - [Table of Contents](#table-of-contents)
   - [Explorer Name Service](#explorer-name-service)
-  - [Full Feature](#full-feature)
+  - [Full Featurelist](#full-featurelist)
     - [Operations](#operations)
     - [Single Struct](#single-struct)
       - [Project](#project)
@@ -36,7 +36,7 @@ Memos are limited to 32 characters that include the prefix.
 
 
 
-## Full Feature
+## Full Featurelist
 
 ### Operations
 
