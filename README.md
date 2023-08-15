@@ -201,10 +201,11 @@ Encoding with bs58:
 > https://github.com/MinaProtocol/mina/pull/7079#issuecomment-746868482
 
 Example
-    - E4YfGWVZK4c946WaUWKU1TVBHkjij17A5NK71qnkfgzDEoPfnHzME  
-    aaaa.test
+    - E4YfGWVZK4c946WaUWKU1TVBHkjij17A5NK71qnkfgzDEoPfnHzME > aaaa.test
+  
+    - Module: [base58check](https://pypi.org/project/base58check/)
 
-First Name
+
 > https://berkeley.minaexplorer.com/transaction/5JtugaKzy5ms55HpVhzBgpDxCAfeFmu2ju11ffWqJAUJpPhztAXJ
 
 Contract
