@@ -14,7 +14,7 @@ This repository serves as an experiment, and all included implementations will l
       - [Project](#project)
       - [Name](#name)
       - [Sources](#sources)
-      - [sRoles](#sroles)
+      - [Roles](#roles)
     - [Batch Update](#batch-update)
   - [Minimal Featurelist](#minimal-featurelist)
     - [Memo Overview](#memo-overview)
@@ -132,7 +132,7 @@ This field can be used to link references to Smart Contracts. Additional fields 
 
 > The key "sources" is optional, but if used, 1 and 2 must be passed as a JSON structure.
 
-#### sRoles
+#### Roles
 
 Roles can be defined here, allowing for the distribution of data management.
 
