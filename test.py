@@ -1,0 +1,3 @@
+import base58check
+
+base58check.b58encode(b'1BoatSLRHtKNngkdXEeobR76b53LETtpyT')

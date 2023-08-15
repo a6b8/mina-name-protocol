@@ -1,37 +1,45 @@
-import { BatchUpdate } from "./src/BatchUpdate.mjs"
+
 import { PrivateKey, PublicKey, Mina, Field } from 'snarkyjs'
 import fs from 'fs'
-import md5 from 'md5'
+import { Inscription } from './src/Inscription.mjs'
 
 
-const test = {
-    'sender': '{{alice}}',
-    'payload': {
-        'operation': 'update',
-        'name': 'meow.test',
-        'sources': [
-            {
-                'provider': 'ipfs',
-                'id': 'ipfs://...',
-                'source': 'ipfs://...2'
+function addPath( { path } ) {
+    const result = Object
+        .entries( path )
+        .reduce( ( acc, a, index ) => {
+            const [ key, value ] = a
+            const p = `.mina/${key}/${value['path']}`
+            acc[ key ] = {
+                'path': value['path'],
+                'content': JSON.parse( fs.readFileSync( p, 'utf-8' ) )
             }
-        ],
-        'roles': [
-            {
-                'provider': 'ord',
-                'id': 'B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEa',
-                'role': 'Contributor',
-                'address': 'B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEb'
-            }
-        ]
-    }
+            return acc
+        }, {} )
+    return result
 }
 
 
-const batchupdate = new BatchUpdate()
-const batch = batchupdate
-    .init()
-    .singleToBatchUpdate( { 'payload': test['payload'] } )
+function addState( { config } ) {
+    const state = {
+        'accounts': {}
+    }
+    state['accounts'] = [
+        [ 'destination', 'contracts' ],
+        [ 'deployer', 'deployers' ]
+    ]
+        .reduce( ( acc, a, index ) => {
+            const [ newKey, oldKey ] = a
+            acc[ newKey ] = PrivateKey.fromBase58( 
+                config['path'][ oldKey ]['content']['data']['address']['private']
+            )
+
+            return acc
+        }, {} )
+
+    return state
+}
+
 
 const config = {
     'path': {
@@ -47,69 +55,60 @@ const config = {
 }
 
 
-config['path'] = Object
-    .entries( config['path'] )
-    .reduce( ( acc, a, index ) => {
-        const [ key, value ] = a
-        const p = `.mina/${key}/${value['path']}`
-        acc[ key ] = {
-            'path': value['path'],
-            'content': JSON.parse( fs.readFileSync( p, 'utf-8' ) )
-        }
-        return acc
-    }, {} )
-
-
-console.log( 'TRANSACTION' )
+console.log( 'CREATE MEMO' )
+console.log( '  Add Path' )
+config['path'] = addPath( { 'path': config['path'] } )
+const state = addState( { config } )
 
 console.log( '  Set Network' )
 const node = 'https://proxy.berkeley.minaexplorer.com/graphql' 
 const Berkeley = Mina.BerkeleyQANet( node )
 Mina.setActiveInstance( Berkeley )
 
+console.log( '  Payload')
+
+const memo = 'aaaa.test' //`{"p":"mns","name":"aaaa.test"}`
+const inscription = new Inscription( memo )
+
+console.log( `    ${memo}` )
+console.log( `    ${inscription.getNumericHash()}` )
+console.log( `    ${inscription.getBase58()}` )
 
 console.log( '  Import' )
 const { Main } = await import( './workdir/build/default.mjs' )
-const destination = PrivateKey.fromBase58( 
-    config['path']['contracts']['content']['data']['address']['private']
-)
-
-const deployer = PrivateKey.fromBase58(
-    config['path']['deployers']['content']['data']['address']['private']
-)
 
 console.log( '  Compile' )
 await Main.compile()
 
 console.log( '  App Instance' )
-const zkAppInstance = new Main( destination.toPublicKey() )
-
-console.log( '  Payload')
-
-const memo = `{"p":"mns","name":"abcd.test"}`
-const hash = md5( memo )
-const numericHash = parseInt( hash, 16 ) % 100000000
-
-console.log( `    ${memo}` )
-console.log( `    ${numericHash}` )
+const zkAppInstance = new Main( state['accounts']['destination'].toPublicKey() )
 
 console.log( '  Transaction' )
+
+const n = inscription.getNumericHash()
 const txn1 = await Mina.transaction(
     {
-        'feePayerKey': deployer, 
+        'feePayerKey': state['accounts']['deployer'], 
         'fee': 100_000_000,
-        'memo': memo//JSON.stringify( test['payload'] )
+        'memo': memo //JSON.stringify( test['payload'] )
     },
-    () => { zkAppInstance.mns( Field( numericHash ) ) }
+    () => { zkAppInstance.mns( Field( inscription.getNumericHash( n ) ) ) }
 )
 
 console.log( '  Prove' )
 await txn1.prove()
 const result = await txn1
-    .sign( [ deployer ] )
+    .sign( [ state['accounts']['deployer'] ] )
     .send()
 
-console.log( 'result', result )
+
+console.log( '  Hash' )
+console.log( '    ', result.hash() )
+
+console.log( '  Waiting...' )
+await result.wait()
+
+
 
 
 /*

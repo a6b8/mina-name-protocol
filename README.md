@@ -231,3 +231,58 @@ query MyQuery {
       zkappCommand {
         memo
         accountUpdates {
+```
+
+Get Address by Name
+
+
+Known: Name
+- NumericHash 24144640
+- Memo: E4ZNHV411wMefbDqatmQPx8ZMZYg3cGHm5nCQ9kqy2mBBngMJ2BzX
+
+
+```
+query MyQuery {
+  events(sortBy: BLOCKHEIGHT_DESC, query: {event_in: "24144640", zkAppCommandHash: {zkappCommand: {accountUpdates: {body: {publicKey: "B62qkvW2gDNdzwnUtM7Zx8dLA8TRNf9MeuycEs5bL46HVCjnZwNMWh5"}}, memo: "E4ZNHV411wMefbDqatmQPx8ZMZYg3cGHm5nCQ9kqy2mBBngMJ2BzX"}}}) {
+    zkAppCommandHash {
+      zkappCommand {
+        accountUpdates {
+          body {
+            events
+            publicKey
+          }
+        }
+        memo
+        feePayer {
+          body {
+            publicKey
+          }
+        }
+      }
+      blockHeight
+      dateTime
+    }
+  }
+}
+```
+
+
+Get Name by Address
+
+Known: Address
+
+```
+query MyQuery {
+  zkapps(sortBy: BLOCKHEIGHT_DESC, query: {zkappCommand: {feePayer: {body: {publicKey: "B62qkJ3BSoHtxd7ndHuETioVPEfG4VcNUA7p4x2Y1PfK3dPrgG2qyEa"}}, accountUpdates: {body: {publicKey: "B62qkvW2gDNdzwnUtM7Zx8dLA8TRNf9MeuycEs5bL46HVCjnZwNMWh5"}}}}) {
+    zkappCommand {
+      accountUpdates {
+        body {
+          events
+          publicKey
+        }
+      }
+      memo
+    }
+  }
+}
+```
