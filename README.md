@@ -1,4 +1,4 @@
-# Mina Name System (Experiment)
+# Mina Name Protocol (Experiment)
 
 This repository serves as an experiment, and all included implementations will likely be revised at a later point. It serves as a playground to advance the idea of an Inscription-Based Name System for Mina.
 
